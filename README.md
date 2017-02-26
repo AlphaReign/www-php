@@ -1,6 +1,8 @@
 # www-php
 The website of AlphaReign
 
+More Info Here: https://github.com/AlphaReign/AlphaReign
+
 Before we get started.  This was a down and dirty setup.  I have not had the time to go back and clean things up, so, be prepared for the mess if you dive in.
 
 
