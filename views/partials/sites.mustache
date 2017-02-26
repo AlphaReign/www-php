@@ -1,0 +1,14 @@
+{{#sites}}
+    <div class="callout">
+        <div class="callout-content">
+            <strong>{{siteID}}</strong> - {{siteDomain}}
+        </div>
+
+        <div class="callout-secondary">
+            <a href="#!/dashboard/edit/{{siteID}}" class="btn btn-sm btn-primary">Edit</a>
+        </div>
+        <div class="callout-secondary">
+            <button class="btn btn-sm btn-danger" data-click="dashboard.deleteSite" data-siteID="{{siteID}}">Delete</button>
+        </div>
+    </div>
+{{/sites}}

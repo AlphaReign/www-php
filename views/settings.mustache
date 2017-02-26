@@ -1,0 +1,172 @@
+{{> head}}
+{{> nav}}
+<div class="block p-t p-b">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-3">
+                <ul class="nav nav-bordered nav-stacked">
+                    <li class="nav-header">User Settings</li>
+                    <li {{#settings}}class="active"{{/settings}}>
+                        <a href="/settings">Details</a>
+                    </li>
+                    <li {{#password}}class="active"{{/password}}>
+                        <a href="/password">Password</a>
+                    </li>
+                    <li {{#theme}}class="active"{{/theme}}>
+                        <a href="/theme">Theme</a>
+                    </li>
+                    <li {{#trackers}}class="active"{{/trackers}}>
+                        <a href="/trackers">Trackers</a>
+                    </li>
+                    {{#user.is_mod}}
+                        <li {{#counts}}class="active"{{/counts}}>
+                            <a href="/counts">Counts</a>
+                        </li>
+                    {{/user.is_mod}}
+                    <li class="nav-divider"></li>
+                    <li {{#delete}}class="active"{{/delete}}>
+                        <a href="/delete">Delete Account</a>
+                    </li>
+                </ul>
+            </div>
+            <div class="col-sm-9">
+                {{> message}}
+                {{#settings}}
+                    <div class="statcard p-a-md">
+                        <h3 class="statcard-number">Member Since</h3>
+                        <span class="statcard-desc" data-unix="{{user.created}}">Page views</span>
+                    </div>
+                    {{#invite_only}}
+                        <div class="statcard p-a-md">
+                            <h3 class="statcard-number">{{invites}}</h3>
+                            <span class="statcard-desc">Invites Accepted</span>
+                        </div>
+                        <div class="callout">
+                            <div class="callout-content">
+                                {{#user.invite}}
+                                    <strong>Invite Code:</strong> {{user.invite}}
+                                    <a class="pull-right" href="{{site.url}}/invite/{{user.invite}}">{{site.url}}/invite/{{user.invite}}</a>
+                                {{/user.invite}}
+                                {{^user.invite}}<strong>Invite Code:</strong> No invitation code generated{{/user.invite}}
+                                <p>Your invite code is valid for only one person. You can generate a new one whenever but it will deactivate any old invite codes</p>
+                            </div>
+
+                            <div class="callout-secondary">
+                                <a href="/generate" class="btn btn-sm btn-info">Generate Invite</a>
+                            </div>
+                        </div>
+                    {{/invite_only}}
+                    <div class="callout">
+                        <div class="callout-content">
+                            {{#user.apikey}}
+                                <strong>API Key:</strong> {{user.apikey}}
+                                <a class="pull-right" href="{{site.url}}/api?apikey={{user.apikey}}">{{site.url}}/api?apikey={{user.apikey}}</a>
+                            {{/user.apikey}}
+                            {{^user.apikey}}<strong>API Key:</strong> No API Key generated{{/user.apikey}}
+                            <p>This is a beta Torznab API.  Please leave feedback or contact us if you have issues.</p>
+                        </div>
+
+                        <div class="callout-secondary">
+                            <a href="/apikey" class="btn btn-sm btn-info">Generate API Key</a>
+                        </div>
+                    </div>
+                {{/settings}}
+                {{#password}}
+                    <h3>Username &nbsp; &nbsp;<span class="small"><strong>{{user.username}}</strong></span></h3>
+                    <h3>Update Password</h3>
+                    <hr>
+                    <form action="/password" method="POST">
+                        <input type="hidden" name="{{csrfNameKey}}" value="{{csrfName}}">
+                        <input type="hidden" name="{{csrfValueKey}}" value="{{csrfValue}}">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input class="form-control" name="password" type="password" placeholder="New Password">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="submit">Save Password</button>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                {{/password}}
+                {{#theme}}
+                    <h3>Theme Design</h3>
+                    <hr>
+                    <form action="/theme" method="POST">
+                        <input type="hidden" name="{{csrfNameKey}}" value="{{csrfName}}">
+                        <input type="hidden" name="{{csrfValueKey}}" value="{{csrfValue}}">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="hidden" name="invert" value="true">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="submit">{{#user.inverted}}Light Theme{{/user.inverted}}{{^user.inverted}}Dark Theme{{/user.inverted}}</button>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                {{/theme}}
+                {{#trackers}}
+                    <h3>Enable Trackers</h3>
+                    <p>Enable Trackers with your Magnet Links (can improve performance of download but leads to increased security risk)</p>
+                    <hr>
+                    <form action="/trackers" method="POST">
+                        <input type="hidden" name="{{csrfNameKey}}" value="{{csrfName}}">
+                        <input type="hidden" name="{{csrfValueKey}}" value="{{csrfValue}}">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input type="hidden" name="tracker" value="true">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="submit">{{#user.trackers}}Disable Trackers{{/user.trackers}}{{^user.trackers}}Enable Trackers{{/user.trackers}}</button>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                {{/trackers}}
+                {{#delete}}
+                    <h3>Delete Account?</h3>
+                    <hr>
+                    <form action="/delete" method="POST">
+                        <input type="hidden" name="{{csrfNameKey}}" value="{{csrfName}}">
+                        <input type="hidden" name="{{csrfValueKey}}" value="{{csrfValue}}">
+                        <div class="form-group">
+                            <div class="input-group">
+                                <input class="form-control" name="password" type="password" placeholder="Enter Password to Delete Account">
+                                <span class="input-group-btn">
+                                    <button class="btn btn-default" type="submit">Delete Account</button>
+                                </span>
+                            </div>
+                        </div>
+                    </form>
+                {{/delete}}
+                {{#counts}}
+                    {{#user.is_mod}}
+                        <div class="row">
+                            <div class="col-sm-4">
+                                <ul class="list-unstyled list-spaced">
+                                    <li><h6 class="text-uppercase">Total Stats</h6></li>
+                                    <li>{{total_hits}} total hits</li>
+                                    <li>{{total_people}} unique people</li>
+                                    <li>{{total_users}} total users</li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-4">
+                                <ul class="list-unstyled list-spaced">
+                                    <li><h6 class="text-uppercase">Usage Stats</h6></li>
+                                    <li>{{last_day}} in last day</li>
+                                    <li>{{last_hour}} in last hour</li>
+                                    <li>{{last_15}} in last 15 minutes</li>
+                                </ul>
+                            </div>
+                            <div class="col-sm-4">
+                                <ul class="list-unstyled list-spaced">
+                                    <li><h6 class="text-uppercase">Catless</h6></li>
+                                    <li>{{catless}}</li>
+                                </ul>
+                            </div>
+                        </div>
+                    {{/user.is_mod}}
+                {{/counts}}
+            </div>
+        </div>
+    </div>
+</div>
+{{> foot}}

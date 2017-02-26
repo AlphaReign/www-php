@@ -1,0 +1,137 @@
+{{> head}}
+{{> nav}}
+{{> search}}
+
+<div class="block p-t p-b">
+    <div class="container">
+        {{> message}}
+        {{#torrent}}
+            <div class="row">
+                <div class="col-sm-12">
+                    <h2>{{name}}</h2>
+             </div>
+             <div class="col-sm-12">
+                <div class="row">
+
+                    <div class="col-xs-6 col-sm-2 text-right">
+                        Votes: &nbsp;
+                        {{^upvotes}}{{^downvotes}}No votes{{/downvotes}}{{/upvotes}}
+                        {{#upvotes}}<span class="btn btn-success btn-xs btn-noclick" alt="upvotes" title="upvotes">{{upvotes}}</span>{{/upvotes}}
+                        {{#downvotes}}<span class="btn btn-danger btn-xs btn-noclick" alt="downvotes" title="downvotes">-{{downvotes}}</span>{{/downvotes}}
+                        {{#comments}}<span class="btn btn-info btn-xs btn-noclick" alt="comments" title="comments">{{comments}} <span class="icon icon-message"></span></span>{{/comments}}
+                        {{#user.is_admin}}
+                            {{#flags}}
+                                <span class="btn btn-danger btn-xs btn-noclick">{{flags}} <span class="icon icon-flag"></span></span>
+                            {{/flags}}
+                        {{/user.is_admin}}
+                    </div>
+                    <div class="col-xs-6 col-sm-2 text-right">
+                        Size: &nbsp;
+                        {{#size}}
+                            <span class="btn btn-xs btn-noclick btn-info">
+                                {{size}}
+                            </span>
+                        {{/size}}
+                    </div>
+                    <div class="col-xs-6 col-sm-2 text-right">
+                        Seeders: &nbsp;
+                        <span class="btn btn-xs btn-noclick btn-success">
+                            {{#seeders}}{{seeders}}{{/seeders}}{{^seeders}}0{{/seeders}}
+                        </span>
+                    </div>
+                    <div class="col-xs-6 col-sm-2 text-right">
+                        Leechers: &nbsp;
+                        <span class="btn btn-xs btn-noclick btn-danger">
+                            {{#leechers}}{{leechers}}{{/leechers}}{{^leechers}}0{{/leechers}}
+                        </span>
+                    </div>
+                    <div class="col-xs-6 col-sm-2 text-right">
+                        Added: &nbsp;
+                        {{#created}}
+                            <span class="btn btn-xs btn-noclick btn-primary" data-unix-short="{{created}}"></span>
+                        {{/created}}
+                    </div>
+                    {{#user}}
+                        <div class="col-xs-6 col-sm-2 text-right">
+                            <a href="/upvote/{{infohash}}" class="btn btn-xs btn-success" alt="upvote torret" title="upvote torrent">
+                                <span class="icon icon-thumbs-up"></span>
+                            </a>
+                            <a href="/downvote/{{infohash}}" class="btn btn-xs btn-warning" alt="downvote torret" title="downvote torrent">
+                                <span class="icon icon-thumbs-down"></span>
+                            </a>
+                            <a href="/flag/{{infohash}}" class="btn btn-xs btn-danger" alt="report torret" title="report torrent">
+                                <span class="icon icon-flag"></span>
+                            </a>
+                            <a href="magnet:?xt=urn:btih:{{infohash}}{{#user.trackers}}{{trackerLink}}{{/user.trackers}}&dn={{name}}" class="btn btn-xs btn-primary" alt="download torrent" title="download torrent">
+                                <span class="icon icon-magnet"></span>
+                            </a>
+                        </div>
+                    {{/user}}
+                    {{^user}}
+                        <div class="col-xs-6 col-sm-2">
+                            Magnet: &nbsp;
+                            <a href="magnet:?xt=urn:btih:{{infohash}}{{#user.trackers}}{{trackerLink}}{{/user.trackers}}&dn={{name}}" class="btn btn-xs btn-primary" alt="download torrent" title="download torrent">
+                                <span class="icon icon-magnet"></span>
+                            </a>
+                        </div>
+                    {{/user}}
+                </div>
+            </div>
+        </div>
+        <hr>
+        <div class="row">
+            {{#hasFiles}}
+                <div class="col-sm-12">
+                    <ul class="list-group">
+                        {{#files}}
+                        <li class="list-group-item">
+                            {{#size}}<span class="badge">{{size}}</span>{{/size}}
+                            {{path}}
+                        </li>
+                        {{/files}}
+                    </ul>
+                </div>
+            {{/hasFiles}}
+            {{^hasFiles}}
+                <div class="col-sm-12">
+                    No Additional Files Found
+                </div>
+            {{/hasFiles}}
+        </div>
+    {{/torrent}}
+</div>
+
+<div class="block p-t p-b">
+    <div class="container">
+        <h3>Comments</h3>
+        {{#user}}
+            <form class="form-horizontal" method="post" action="/comment/{{infohash}}">
+                <input type="hidden" name="{{csrfNameKey}}" value="{{csrfName}}">
+                <input type="hidden" name="{{csrfValueKey}}" value="{{csrfValue}}">
+                <div class="form-group">
+                    <div class="col-sm-12">
+                        <textarea class="form-control" name="comment" rows="3"></textarea>
+                        <p class="small">1,000 characters max</p>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <div class="col-sm-offset-10 col-sm-2">
+                        <button type="submit" class="btn btn-primary btn-sm btn-block btn-default">Post Comment</button>
+                    </div>
+                </div>
+            </form>
+        {{/user}}
+        {{^user}}
+            <p>Login to Post Comments</p>
+        {{/user}}
+        <hr>
+        {{#comments}}
+            <div class="row">
+                <div class="col-sm-12">{{{comment}}}</div>
+                <div class="col-sm-12 small">Posted by: <strong>{{user.username}}</strong> on <span data-unix="{{created}}"></span></div>
+            </div>
+            <hr>
+        {{/comments}}
+    </div>
+</div>
+{{> foot}}

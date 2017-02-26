@@ -1,0 +1,140 @@
+h1 > a,
+h1 > a:hover,
+h1 > a:active,
+h1 > a:focus,
+h1 > a:visited {
+	text-decoration: none;
+	color: #000;
+}
+
+.h1.block-title, h1.block-title {
+	font-size: 2em;
+}
+@media (min-width: 992px){
+	.h1.block-title, h1.block-title {
+		font-size: 56px;
+	}
+}
+
+p,
+a {
+	font-weight: 400;
+}
+
+.navbar-brand > img {
+	height: 20px;
+	float: left;
+	padding-right: 10px;
+}
+
+.navbar-nav>li>p {
+	padding: 10px 15px;
+	line-height: 22px;
+}
+@media (min-width: 768px){
+	.navbar-nav>li>p {
+		padding: 0;
+	}
+}
+
+.auth-form {
+	max-width: 400px;
+	margin: 0 auto;
+	text-align: right;
+}
+
+.block-title img {
+	max-height: 1.25em;
+	margin-top: -0.2em;
+}
+
+.btn-noclick {
+	font-weight: 400 !important;
+}
+
+.btn-noclick:hover,
+.btn-noclick:active,
+.btn-noclick:focus {
+	cursor: default;
+}
+
+.app-block-footer {
+	background-color: rgb(27, 28, 29);
+	color: #444;
+	color: rgba(116, 119, 123, .5);
+	padding: 0;
+}
+
+body.dark, body.dark * {
+	background-color: #000000 !important;
+	color: #bbbbbb !important;
+}
+
+body.dark a {
+	text-decoration: underline !important;
+}
+
+body.dark .navbar-default .navbar-toggle .icon-bar {
+	background: #FFFFFF !important;
+}
+
+body.dark .label-primary {
+	border: 1px solid #685D9F;
+}
+body.dark .label-success {
+	border: 1px solid #5cb85c;
+}
+body.dark .label-info {
+	border: 1px solid #5bc0de;
+}
+body.dark .label-danger {
+	border: 1px solid #FF3167;
+}
+
+.result {
+	border-top: 1px solid #CCCCCC;
+	padding: 1rem 0;
+	margin: 1rem 0;
+	overflow: hidden;
+	text-overflow: clip;
+}
+
+
+.block {
+	padding-left: 0;
+	padding-right: 0;
+}
+
+
+.label-group {
+	position: relative;
+	display: inline-block;
+	vertical-align: middle;
+}
+.label-group > .label {
+	display: block;
+	width: 100%;
+	max-width: 100%;
+	border-radius: 0;
+}
+.label-group > .label:first-child {
+	border-top-left-radius: .25em;
+	border-top-right-radius: .25em;
+}
+.label-group > .label:last-child {
+	border-bottom-left-radius: .25em;
+	border-bottom-right-radius: .25em;
+}
+
+#timer {
+	bottom: 0;
+	width: 100%;
+	margin: 0;
+	padding: 0;
+}
+#timer > pre {
+	margin: 0;
+	border: 0;
+	border-top: 1px solid #ccc;
+	border-radius: 0px;
+}

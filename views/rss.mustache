@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<rss version="1.0" xmlns:atom="http://www.w3.org/2005/Atom" xmlns:torznab="http://torznab.com/schemas/2015/feed">
+	<channel>
+		<atom:link href="https://hdaccess.net/api" rel="self" type="application/rss+xml" />
+		<title>{{site.name}}</title>
+		<description>{{site.name}} API</description>
+		<link>{{site.url}}</link>
+		<language>en-us</language>
+		<webMaster>{{site.contact}}</webMaster>
+		<category>search</category>
+		<image>
+			<url>{{site.url}}/assets/img/logo-small.png</url>
+			<title>{{site.name}}</title>
+			<link>{{site.url}}</link>
+			<description>{{site.name}} API</description>
+		</image>
+
+		{{#results}}
+		<item>
+			<title>{{name}}</title>
+			<guid isPermaLink="true">{{site.url}}/torrent/{{infohash}}</guid>
+			<magneturl>{{magnet}}</magneturl>
+			<comments>{{site.url}}/torrent/{{infohash}}#comments</comments>
+			<pubDate>{{date}}</pubDate>
+			<category>{{#categories}}{{.}} {{/categories}}{{#tags}}{{.}} {{/tags}}</category>
+			<size>{{length}}</size>
+			<description>{{name}}</description>
+			<enclosure url="{{magnet}}" length="{{length}}" type="application/x-bittorrent" />
+			{{#categories}}<torznab:attr name="category" value="{{.}}" />{{/categories}}
+			{{#tags}}<torznab:attr name="category" value="{{.}}" />{{/tags}}
+			{{#type}}<torznab:attr name="type" value="{{.}}" />{{/type}}
+			<torznab:attr name="seeders" value="{{seeders}}" />
+			<torznab:attr name="peers" value="{{leechers}}" />
+			<torznab:attr name="infohash" value="{{infohash}}" />
+			<torznab:attr name="minimumratio" value="1.0" />
+			<torznab:attr name="minimumseedtime" value="172800" />
+		</item>
+		{{/results}}
+	</channel>
+</rss>

@@ -1,0 +1,28 @@
+
+<div class="container">
+    <form method="GET" action="/">
+        <div class="input-group">
+            <input type="text" name="query" class="form-control m-b" placeholder="Search for..." value="{{query}}" autofocus="autofocus">
+            <span class="input-group-btn">
+                <button type="submit" class="btn btn-default m-b" type="button">Search</button>
+            </span>
+        </div>
+    </form>
+</div>
+<div class="container">
+    <div class="col-sm-12 text-center">
+        {{#defaultTypes}}<a href="?{{getURLTypeless}}type={{.}}" class="label label-primary">{{.}}</a> {{/defaultTypes}}
+        {{#defaultCategories}}<a href="?{{getURLCatless}}category={{.}}" class="label label-success">{{.}}</a> {{/defaultCategories}}
+        {{#defaultTags}}<a href="?{{getURLTagless}}tag={{.}}" class="label label-info">{{.}}</a> {{/defaultTags}}
+    </div>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-sm-12 text-center">
+            <p>
+                <br>
+                Help protect yourself and support this site with <a href="https://www.privateinternetaccess.com/pages/buy-vpn/alpha">Private Internet Access VPN</a> or donate Bitcoin to 1PKn6nTyZZsmEKGWp4amDXUHgKSP4dFt8x
+            </p>
+        </div>
+    </div>
+</div>

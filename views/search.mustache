@@ -1,0 +1,170 @@
+{{> head}}
+{{> nav}}
+{{> search}}
+
+<div class="block p-t p-b">
+    <div class="container">
+        {{> message}}
+        <h3>{{title}}{{#total}}<span class="small"> ({{total}} results)</span>{{/total}}</h3>
+        <div class="row">
+            <div class="col-sm-12 col-md-6 col-lg-6">
+                <h4><a href="#" class="sort"  data-sort="name">Title</a></h4>
+            </div>
+            <div class="col-sm-12 col-md-6 col-lg-6">
+                <div class="row">
+                    <div class="col-xs-2 text-right">
+                        <button class="btn btn-xs sort btn-info" data-sort="size">size</button>
+                    </div>
+                    <div class="col-xs-2 text-right">
+                        <a href="?{{getURLSortless}}sort=seeders" class="btn btn-xs btn-success">seeders</a>
+                    </div>
+                    <div class="col-xs-2 text-right">
+                        <a href="?{{getURLSortless}}sort=leechers" class="btn btn-xs btn-danger">leechers</a>
+                    </div>
+                    <div class="col-xs-2 text-right">
+                        <a href="?{{getURLSortless}}sort=created" class="btn btn-xs btn-primary">added</a>
+                    </div>
+                </div>
+            </div>
+        </div>
+        {{^results}}
+            <div class="row">
+                <div class="col-sm-12">
+                    <p>Search for a torrent</p>
+                </div>
+            </div>
+        {{/results}}
+        <div id="results">
+            {{#results}}
+                <div class="result"
+                    data-name="{{name}}"
+                    data-added="{{#created}}{{created}}{{/created}}{{^created}}0{{/created}}"
+                    data-size="{{#length}}{{length}}{{/length}}{{^length}}0{{/length}}"
+                    data-seeders="{{#seeders}}{{seeders}}{{/seeders}}{{^seeders}}0{{/seeders}}"
+                    data-leechers="{{#leechers}}{{leechers}}{{/leechers}}{{^leechers}}0{{/leechers}}">
+                    <div class="row">
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+                            <a href="/torrent/{{infohash}}">{{name}}</a>
+                            <a role="button" data-toggle="collapse" data-parent="#accordion" href="#collapse{{infohash}}" aria-controls="collapse{{infohash}}"><span class="icon icon-chevron-down"></span></a>
+                            <br>
+                            {{#upvotes}}
+                                <span class="label label-success" alt="upvotes" title="upvotes">{{upvotes}}</span>
+                            {{/upvotes}}
+                            {{#downvotes}}
+                                <span class="label label-danger" alt="downvotes" title="downvotes">- {{downvotes}}</span>
+                            {{/downvotes}}
+                            {{#comments}}
+                                <a href="/torrent/{{infohash}}" class="label label-info" alt="comments" title="comments">
+                                    {{comments}} <span class="icon icon-message"></span></a>
+                            {{/comments}}
+                            {{#type}}
+                                <a href="?{{getURLTypeless}}type={{type}}" class="label label-primary">{{type}}</a>
+                            {{/type}}
+                            {{#type}}
+                                {{#categories}}<a href="?{{getURLCatless}}category={{.}}" class="label label-success">{{.}}</a> {{/categories}}
+                            {{/type}}
+                            {{#type}}
+                                {{#tags}}<a href="?{{getURLTagless}}tag={{.}}" class="label label-info">{{.}}</a> {{/tags}}
+                            {{/type}}
+                            {{#user.is_admin}}
+                                {{#score}}
+                                    <span class="label label-primary">{{score}}</span>
+                                {{/score}}
+                                {{#flags}}
+                                    <span class="label label-danger">{{flags}} <span class="icon icon-flag"></span></span>
+                                {{/flags}}
+                                <a href="/update/{{infohash}}"><span class="icon icon-share-alternative"></span></a>
+                            {{/user.is_admin}}
+                        </div>
+                        <div class="col-sm-12 col-md-6 col-lg-6">
+                            <div class="row">
+                                <div class="col-xs-2 text-right">
+                                    {{#size}}
+                                        <span class="btn btn-xs btn-noclick btn-info">
+                                            {{size}}
+                                        </span>
+                                    {{/size}}
+                                </div>
+                                <div class="col-xs-2 text-right">
+                                    <span class="btn btn-xs btn-noclick btn-success">
+                                        {{#seeders}}{{seeders}}{{/seeders}}{{^seeders}}0{{/seeders}}
+                                    </span>
+                                </div>
+                                <div class="col-xs-2 text-right">
+                                    <span class="btn btn-xs btn-noclick btn-danger">
+                                        {{#leechers}}{{leechers}}{{/leechers}}{{^leechers}}0{{/leechers}}
+                                    </span>
+                                </div>
+                                <div class="col-xs-2 text-right">
+                                    {{#created}}
+                                        <span class="btn btn-xs btn-noclick btn-primary" data-unix-short="{{created}}"></span>
+                                    {{/created}}
+                                </div>
+                                {{#user}}
+                                    <div class="col-xs-4 text-right">
+                                        <a href="/flag/{{infohash}}" class="btn btn-xs btn-danger" alt="report torret" title="report torrent">
+                                            <span class="icon icon-flag"></span>
+                                        </a>
+                                        &nbsp;
+                                        &nbsp;
+                                        <a href="/upvote/{{infohash}}" class="btn btn-xs btn-success" alt="upvote torret" title="upvote torrent">
+                                            <span class="icon icon-thumbs-up"></span>
+                                        </a>
+                                        <a href="/downvote/{{infohash}}" class="btn btn-xs btn-warning" alt="downvote torret" title="downvote torrent">
+                                            <span class="icon icon-thumbs-down"></span>
+                                        </a>
+                                        <a href="magnet:?xt=urn:btih:{{infohash}}{{#user.trackers}}{{trackerLink}}{{/user.trackers}}&dn={{name}}" class="btn btn-xs btn-primary" alt="download torrent" title="download torrent">
+                                            <span class="icon icon-magnet"></span>
+                                        </a>
+                                    </div>
+                                {{/user}}
+                                {{^user}}
+                                    <div class="col-xs-4 text-right">
+                                        Magnet: &nbsp;
+                                        <a href="magnet:?xt=urn:btih:{{infohash}}{{#user.trackers}}{{trackerLink}}{{/user.trackers}}&dn={{name}}" class="btn btn-xs btn-primary" alt="download torrent" title="download torrent">
+                                            <span class="icon icon-magnet"></span>
+                                        </a>
+                                    </div>
+                                {{/user}}
+                            </div>
+                        </div>
+                    </div>
+                    <div id="collapse{{infohash}}" class="collapse row" role="tabpanel">
+                        {{#hasFiles}}
+                            <div class="col-sm-12">
+                                Files
+                                <ul class="list-group">
+                                    {{#files}}
+                                        <li class="list-group-item">
+                                            {{#size}}<span class="badge">{{size}}</span>{{/size}}
+                                            {{path}}
+                                        </li>
+                                    {{/files}}
+                                </ul>
+                            </div>
+                        {{/hasFiles}}
+                        {{^hasFiles}}
+                            <div class="col-sm-12">
+                                No Additional Files Found
+                            </div>
+                        {{/hasFiles}}
+                    </div>
+                </div>
+            {{/results}}
+        </div>
+        <hr>
+        <div class="row">
+            <div class="col-xs-6 col-sm-3">
+                {{#prev}}
+                    <a href="?{{getURLPageless}}page={{prev}}" class="btn btn-primary btn-block btn-sm">Prev</a>
+                {{/prev}}
+            </div>
+            <div class="col-xs-6 col-sm-offset-6 col-sm-3">
+                {{#next}}
+                    <a href="?{{getURLPageless}}page={{next}}" class="btn btn-primary btn-block btn-sm">Next</a>
+                {{/next}}
+            </div>
+        </div>
+    </div>
+</div>
+{{> foot}}

@@ -1,0 +1,54 @@
+{{> head}}
+<div class="block">
+	<div class="container text-center auth">
+		<h1 class="block-title m-b-sm text-uppercase"><a href="/">
+			<img src="/assets/img/logo-small.png">
+			{{site.name}}
+		</a></h1>
+		<p class="lead m-b-lg p-b-md">{{site.lead}}</p>
+
+		<div class="auth-form">
+
+			<div class="text-left">
+				{{> message}}
+			</div>
+
+			<ul class="nav nav-tabs nav-justified" role="tablist">
+				<li role="presentation" {{^register}}class="active"{{/register}}><a href="#login" aria-controls="login" role="tab" data-toggle="tab">Login</a></li>
+				<li role="presentation" {{#register}}class="active"{{/register}}><a href="#register" aria-controls="register" role="tab" data-toggle="tab">Register</a></li>
+			</ul>
+
+			<div class="tab-content">
+				<div role="tabpanel" class="tab-pane {{^register}}active{{/register}}" id="login">
+					<form action="/login" method="POST">
+						<input type="hidden" name="{{csrfNameKey}}" value="{{csrfName}}">
+						<input type="hidden" name="{{csrfValueKey}}" value="{{csrfValue}}">
+						<input type="text" name="username" class="form-control m-b m-t" placeholder="Username" required {{#loginform.username}}value="{{loginform.username}}"{{/loginform.username}} autofocus>
+						<input type="password" name="password" class="form-control m-b" placeholder="Password" required {{#loginform.password}}value="{{loginform.password}}"{{/loginform.password}}>
+						<button type="submit" class="btn btn-default-outline">Login</button>
+					</form>
+				</div>
+				<div role="tabpanel" class="tab-pane {{#register}}active{{/register}}" id="register">
+					<form action="/register" method="POST">
+						<input type="hidden" name="{{csrfNameKey}}" value="{{csrfName}}">
+						<input type="hidden" name="{{csrfValueKey}}" value="{{csrfValue}}">
+						<input type="text" name="username" class="form-control m-b m-t" placeholder="Username" required {{#registerform.username}}value="{{registerform.username}}"{{/registerform.username}}>
+						<input type="password" name="password" class="form-control m-b" placeholder="Password" required {{#registerform.password}}value="{{registerform.password}}"{{/registerform.password}}>
+						{{#invite_only}}
+							<input type="text" name="invitation" class="form-control m-b" placeholder="Invitation Code" required {{#registerform.invitation}}value="{{registerform.invitation}}"{{/registerform.invitation}}>
+						{{/invite_only}}
+						<button type="submit" class="btn btn-default-outline">Register</button>
+						{{!<p class="text-center"><br>Don't have an invite code? Become a lifetime <a href="/vip">VIP Member</a> to get one!</p>}}
+					</form>
+				</div>
+			</div>
+			<div class="text-center">
+				<br>
+				<a href="/about">About AlphaReign</a>
+				&nbsp; | &nbsp;
+				<a href="/privacy">Privacy Policy</a>
+			</div>
+		</div>
+	</div>
+</div>
+{{> foot}}

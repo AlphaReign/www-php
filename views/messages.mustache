@@ -1,0 +1,28 @@
+{{> head}}
+{{> nav}}
+<div class="block p-t p-b">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                <h3>User Feedback</h3>
+                <hr>
+            </div>
+            {{#messages}}
+                <div class="col-sm-12">
+                    <p>{{{message}}}</p>
+                    <p class="small">Sent from <strong>{{username}}</strong> on <span data-unix="{{created}}"></span></p>
+                    {{#user.is_admin}}
+                        <p class="text-right"><a href="/message/{{id}}/dismiss" class="btn btn-danger btn-sm">Dismiss</a></p>
+                    {{/user.is_admin}}
+                    <hr>
+                </div>
+            {{/messages}}
+            {{^messages}}
+                <div class="col-sm-12">
+                    <p>No Feedback from Users</p>
+                </div>
+            {{/messages}}
+        </div>
+    </div>
+</div>
+{{> foot}}

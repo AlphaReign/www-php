@@ -1,0 +1,24 @@
+{{> head}}
+{{> nav}}
+<div class="block p-t p-b">
+    <div class="container">
+        <div class="row">
+            <div class="col-sm-12">
+                {{> message}}
+                <h3>Feedback</h3>
+                <p>Let us know of anything you do or don't like</p>
+                <form action="/feedback" method="POST">
+                    <input type="hidden" name="{{csrfNameKey}}" value="{{csrfName}}">
+                    <input type="hidden" name="{{csrfValueKey}}" value="{{csrfValue}}">
+                    <div class="form-group">
+                        <textarea name="message" class="form-control"></textarea>
+                    </div>
+                    <div class="form-group">
+                        <button class="btn btn-default" type="submit">Leave Feedback</button>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+</div>
+{{> foot}}
