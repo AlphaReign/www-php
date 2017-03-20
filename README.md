@@ -13,15 +13,16 @@ You need to have a good working knowledge of how PHP webservers work.  If not, t
 Required PHP Packages:
 
 * php7.0-fpm
-* php7.0-sqlite
+* php7.0-mysql / php7.0-sqlite
 * php7.0-curl
+* php7.0-mbstring
 
 Install Composer and then run a composer install
 
 Other Packages:
 
 * ElasticSearch
-* MySQL / MariaDB
+* MySQL / MariaDB / Sqlite
 
 Settings for the database are in the index.php file
 
