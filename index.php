@@ -63,35 +63,37 @@ $container['csrf'] = function ($c) {
 	return new \Slim\Csrf\Guard;
 };
 
-$container['errorHandler'] = function ($c) {
-	return function ($request, $response, $exception) use ($c) {
-		$error = file_get_contents(ROOT . '/error.html');
-		return $c['response']
-		->withStatus(500)
-		->withHeader('Content-Type', 'text/html')
-		->write($error);
+if (!$settings['settings']['displayErrorDetails']) {
+	$container['errorHandler'] = function ($c) {
+		return function ($request, $response, $exception) use ($c) {
+			$error = file_get_contents(ROOT . '/error.html');
+			return $c['response']
+			->withStatus(500)
+			->withHeader('Content-Type', 'text/html')
+			->write($error);
+		};
 	};
-};
 
-$container['phpErrorHandler'] = function ($c) {
-	return function ($request, $response, $exception) use ($c) {
-		$error = file_get_contents(ROOT . '/errorPHP.html');
-		return $c['response']
-		->withStatus(500)
-		->withHeader('Content-Type', 'text/html')
-		->write($error);
+	$container['phpErrorHandler'] = function ($c) {
+		return function ($request, $response, $exception) use ($c) {
+			$error = file_get_contents(ROOT . '/errorPHP.html');
+			return $c['response']
+			->withStatus(500)
+			->withHeader('Content-Type', 'text/html')
+			->write($error);
+		};
 	};
-};
 
-$c['notFoundHandler'] = function ($c) {
-	return function ($request, $response) use ($c) {
-		$error = file_get_contents(ROOT . '/404.html');
-		return $c['response']
-		->withStatus(404)
-		->withHeader('Content-Type', 'text/html')
-		->write($error);
+	$c['notFoundHandler'] = function ($c) {
+		return function ($request, $response) use ($c) {
+			$error = file_get_contents(ROOT . '/404.html');
+			return $c['response']
+			->withStatus(404)
+			->withHeader('Content-Type', 'text/html')
+			->write($error);
+		};
 	};
-};
+}
 
 timer('app loaded');
 
