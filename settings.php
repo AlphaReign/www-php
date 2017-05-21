@@ -10,10 +10,10 @@ $settings = [
 			'name' => 'AlphaReign',
 			'short' => 'AR',
 			'lead' => 'A Private Torrent Search Engine',
-			'domain' => 'alphareign.se',
-			'url' => 'https://alphareign.se',
+			'domain' => 'example.com',
+			'url' => 'https://example.com',
 			'version' => '0.0.8',
-			'contact' => 'alphareign@protonmail.com'
+			'contact' => 'contact@example.com'
 		]
 	]
 ];
