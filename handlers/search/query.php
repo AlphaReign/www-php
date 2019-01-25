@@ -103,7 +103,14 @@ if($this->params->sort != '' && in_array($this->params->sort, ['seeders', 'leech
 		]
 	];
 }
-
+else {
+	$sort = [
+		'seeders' => [
+			'order' => 'desc',
+			'missing' => '_last'
+		]
+	];	
+}
 
 if(isset($sort)){
 	$doc['body']['sort'] = $sort;

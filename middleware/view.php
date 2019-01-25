@@ -54,8 +54,7 @@ $app->add(function ($request, $response, $next) {
 
     $this->view->defaultTypes = ['video', 'audio', 'doc'];
     $this->view->defaultCategories = ['show', 'movie', 'album', 'ebook'];
-    $this->view->defaultTags = ['1080', '720', 'HD', 'SD', 'BDRIP', 'XXX', 'DVDRIP', 'epub', 'mobi', 'kindle'];
-
+    $this->view->defaultTags = ['1080', '720', 'hd', 'sd', 'bdrip', 'xxx', 'dvdrip', 'epub', 'mobi', 'kindle'];
 
     return $next($request, $response);
 });
