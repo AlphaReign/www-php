@@ -40,6 +40,7 @@ if(isset($temp['files'])){
 	}
 	$temp['hasFiles'] = true;
 }
+$temp['created'] = strtotime($temp['created']);
 $this->view->torrent = $temp;
 
 
