@@ -53,6 +53,7 @@ if(isset($torrents) && is_array($torrents) && count($torrents) > 0){
 		}
 		$results[] = $temp;
 	}
+	$temp['created'] = strtotime($temp['created']);
 	$this->view->results = $results;
 }
 
