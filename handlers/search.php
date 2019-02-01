@@ -51,9 +51,9 @@ if(isset($torrents) && is_array($torrents) && count($torrents) > 0){
 			}
 			$temp['hasFiles'] = true;
 		}
+		$temp['created'] = strtotime($temp['created']);
 		$results[] = $temp;
 	}
-	$temp['created'] = strtotime($temp['created']);
 	$this->view->results = $results;
 }
 
